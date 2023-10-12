@@ -2,6 +2,7 @@ package com.udemy.project.course.services;
 
 import com.udemy.project.course.entities.User;
 import com.udemy.project.course.repositories.UserRepository;
+import com.udemy.project.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> obj = userRepository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj){
